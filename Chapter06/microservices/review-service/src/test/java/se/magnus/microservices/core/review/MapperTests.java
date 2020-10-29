@@ -1,15 +1,15 @@
 package se.magnus.microservices.core.review;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.mapstruct.factory.Mappers;
 import se.magnus.api.core.review.Review;
 import se.magnus.microservices.core.review.persistence.ReviewEntity;
 import se.magnus.microservices.core.review.services.ReviewMapper;
 
+import static org.junit.jupiter.api.Assertions.*;
+
 import java.util.Collections;
 import java.util.List;
-
-import static org.junit.Assert.*;
 
 public class MapperTests {
 

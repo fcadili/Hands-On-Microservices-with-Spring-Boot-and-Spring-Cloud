@@ -1,24 +1,23 @@
 package se.magnus.microservices.core.review;
 
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.OptimisticLockingFailureException;
-import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
 import se.magnus.microservices.core.review.persistence.ReviewEntity;
 import se.magnus.microservices.core.review.persistence.ReviewRepository;
 
 import java.util.List;
 
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.hasSize;
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.springframework.transaction.annotation.Propagation.NOT_SUPPORTED;
 
-@RunWith(SpringRunner.class)
 @DataJpaTest
 @Transactional(propagation = NOT_SUPPORTED)
 public class PersistenceTests {
@@ -28,7 +27,7 @@ public class PersistenceTests {
 
     private ReviewEntity savedEntity;
 
-    @Before
+    @BeforeEach
    	public void setupDb() {
    		repository.deleteAll();
 
@@ -75,10 +74,12 @@ public class PersistenceTests {
         assertEqualsReview(savedEntity, entityList.get(0));
     }
 
-    @Test(expected = DataIntegrityViolationException.class)
+    @Test
    	public void duplicateError() {
-        ReviewEntity entity = new ReviewEntity(1, 2, "a", "s", "c");
-        repository.save(entity);
+    	Assertions.assertThrows(DataIntegrityViolationException.class, () -> {
+	        ReviewEntity entity = new ReviewEntity(1, 2, "a", "s", "c");
+	        repository.save(entity);
+    	});
     }
 
     @Test

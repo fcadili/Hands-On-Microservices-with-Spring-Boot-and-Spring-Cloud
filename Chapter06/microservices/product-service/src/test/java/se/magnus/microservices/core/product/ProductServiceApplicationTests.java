@@ -1,24 +1,20 @@
 package se.magnus.microservices.core.product;
 
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.HttpStatus;
-import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.reactive.server.WebTestClient;
 import se.magnus.api.core.product.Product;
 import se.magnus.microservices.core.product.persistence.ProductRepository;
 
-import static junit.framework.TestCase.assertTrue;
-import static org.junit.Assert.assertFalse;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.springframework.boot.test.context.SpringBootTest.WebEnvironment.RANDOM_PORT;
 import static org.springframework.http.HttpStatus.*;
 import static org.springframework.http.MediaType.APPLICATION_JSON;
 import static reactor.core.publisher.Mono.just;
 
-@RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment=RANDOM_PORT, properties = {"spring.data.mongodb.port: 0"})
 public class ProductServiceApplicationTests {
 
@@ -28,7 +24,7 @@ public class ProductServiceApplicationTests {
 	@Autowired
 	private ProductRepository repository;
 	
-	@Before
+	@BeforeEach
 	public void setupDb() {
 		repository.deleteAll();
 	}

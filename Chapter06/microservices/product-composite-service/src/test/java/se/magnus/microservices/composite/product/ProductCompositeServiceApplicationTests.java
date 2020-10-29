@@ -1,15 +1,15 @@
 package se.magnus.microservices.composite.product;
 
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.autoconfigure.web.reactive.WebFluxTest;
+//import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.HttpStatus;
-import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.reactive.server.WebTestClient;
 import se.magnus.api.composite.product.ProductAggregate;
+import se.magnus.api.composite.product.ProductCompositeService;
 import se.magnus.api.composite.product.RecommendationSummary;
 import se.magnus.api.composite.product.ReviewSummary;
 import se.magnus.api.core.product.Product;
@@ -21,13 +21,13 @@ import se.magnus.util.exceptions.NotFoundException;
 
 import static java.util.Collections.singletonList;
 import static org.mockito.Mockito.when;
-import static org.springframework.boot.test.context.SpringBootTest.WebEnvironment.RANDOM_PORT;
+//import static org.springframework.boot.test.context.SpringBootTest.WebEnvironment.RANDOM_PORT;
 import static org.springframework.http.HttpStatus.*;
 import static org.springframework.http.MediaType.APPLICATION_JSON;
 import static reactor.core.publisher.Mono.just;
 
-@RunWith(SpringRunner.class)
-@SpringBootTest(webEnvironment=RANDOM_PORT)
+//@SpringBootTest(webEnvironment=RANDOM_PORT)
+@WebFluxTest(ProductCompositeService.class)
 public class ProductCompositeServiceApplicationTests {
 
 	private static final int PRODUCT_ID_OK = 1;
@@ -40,7 +40,7 @@ public class ProductCompositeServiceApplicationTests {
 	@MockBean
 	private ProductCompositeIntegration compositeIntegration;
 
-	@Before
+	@BeforeEach
 	public void setUp() {
 
 		when(compositeIntegration.getProduct(PRODUCT_ID_OK)).

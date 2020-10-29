@@ -1,12 +1,13 @@
 package se.magnus.microservices.core.product;
 
-import org.junit.Test;
 import org.mapstruct.factory.Mappers;
 import se.magnus.api.core.product.Product;
 import se.magnus.microservices.core.product.persistence.ProductEntity;
 import se.magnus.microservices.core.product.services.ProductMapper;
 
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.*;
+
+import org.junit.jupiter.api.Test;
 
 public class MapperTests {
 

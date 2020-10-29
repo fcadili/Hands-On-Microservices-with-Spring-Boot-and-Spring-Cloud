@@ -1,8 +1,8 @@
 package se.magnus.microservices.core.product;
 
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.data.mongo.DataMongoTest;
 import org.springframework.dao.DuplicateKeyException;
@@ -10,7 +10,6 @@ import org.springframework.dao.OptimisticLockingFailureException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.test.context.junit4.SpringRunner;
 import se.magnus.microservices.core.product.persistence.ProductEntity;
 import se.magnus.microservices.core.product.persistence.ProductRepository;
 
@@ -19,10 +18,9 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 import static java.util.stream.IntStream.rangeClosed;
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.springframework.data.domain.Sort.Direction.ASC;
 
-@RunWith(SpringRunner.class)
 @DataMongoTest
 public class PersistenceTests {
 
@@ -31,7 +29,7 @@ public class PersistenceTests {
 
     private ProductEntity savedEntity;
 
-    @Before
+    @BeforeEach
    	public void setupDb() {
    		repository.deleteAll();
 
@@ -78,10 +76,12 @@ public class PersistenceTests {
         assertEqualsProduct(savedEntity, entity.get());
     }
 
-    @Test(expected = DuplicateKeyException.class)
+    @Test
    	public void duplicateError() {
-        ProductEntity entity = new ProductEntity(savedEntity.getProductId(), "n", 1);
-        repository.save(entity);
+    	Assertions.assertThrows(DuplicateKeyException.class, () -> {
+    		ProductEntity entity = new ProductEntity(savedEntity.getProductId(), "n", 1);
+    		repository.save(entity);
+    	});
     }
 
     @Test

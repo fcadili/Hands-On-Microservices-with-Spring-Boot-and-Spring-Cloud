@@ -1,23 +1,20 @@
 package se.magnus.microservices.core.recommendation;
 
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.HttpStatus;
-import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.reactive.server.WebTestClient;
 import se.magnus.api.core.recommendation.Recommendation;
 import se.magnus.microservices.core.recommendation.persistence.RecommendationRepository;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.springframework.boot.test.context.SpringBootTest.WebEnvironment.RANDOM_PORT;
 import static org.springframework.http.HttpStatus.*;
 import static org.springframework.http.MediaType.APPLICATION_JSON;
 import static reactor.core.publisher.Mono.just;
 
-@RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment=RANDOM_PORT, properties = {"spring.data.mongodb.port: 0"})
 public class RecommendationServiceApplicationTests {
 
@@ -28,7 +25,7 @@ public class RecommendationServiceApplicationTests {
 	private RecommendationRepository repository;
 
 
-	@Before
+	@BeforeEach
 	public void setupDb() {
 		repository.deleteAll();
 	}
